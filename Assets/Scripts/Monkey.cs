@@ -5,12 +5,14 @@ using UnityEngine;
 public class Monkey : MonoBehaviour
 {
     public GameObject spawner;
-    public GameObject shotEffect;
-    Vector3 direction;
-    public float speed;
-    int ostatniaX = 0; // 0-lewa, 1-prawa
-    int ostatniaY = 0; // 0-lewa, 1-prawa
-    // Start is called before the first frame update
+    private Vector3 direction;
+
+    [SerializeField] GameObject shotEffect;
+    [SerializeField] float speed;
+
+    //Usage of lastX and lastY - to refer which wall was last touched by monkey, to avoid changing direction multiple times by one wall
+    bool lastX = false; // Last touched wall by monkey, false - left wall, true - right wall 
+    bool lastY = false; // Last touched wall by monkey, false - down wall, true - up wall 
 
     void Start()
     {
@@ -27,35 +29,34 @@ public class Monkey : MonoBehaviour
         }
         while (y == 0);
 
-        if (x < 0) ostatniaX = 1;
-        if (y < 0) ostatniaY = 1;
+        if (x < 0) lastX = true;
+        if (y < 0) lastY = true;
 
         direction = new Vector3(x, y, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position += direction.normalized * speed *Time.deltaTime;
+        transform.position += direction.normalized * speed * Time.deltaTime;
 
-        if ((transform.position.x >= spawner.transform.localScale.x / 2 && ostatniaX == 0)
+        if ((transform.position.x >= spawner.transform.localScale.x / 2 && !lastX)
             || 
-            (transform.position.x <= spawner.transform.localScale.x / 2 * -1 && ostatniaX == 1)) 
+            (transform.position.x <= spawner.transform.localScale.x / 2 * -1 && lastX)) 
         {
             direction.x *= -1;
-            if (transform.position.x > 0) ostatniaX = 1;
-            else ostatniaX = 0;
+            if (transform.position.x > 0) lastX = true;
+            else lastX = false;
         }
-        if ((transform.position.y >= spawner.transform.localScale.y / 2 && ostatniaY == 0)
+        if ((transform.position.y >= spawner.transform.localScale.y / 2 && !lastY)
             ||
-            (transform.position.y <= spawner.transform.localScale.y / 2 * -1 && ostatniaY == 1))
+            (transform.position.y <= spawner.transform.localScale.y / 2 * -1 && lastY))
         {
             direction.y *= -1;
-            if (transform.position.y > 0) ostatniaY = 1;
-            else ostatniaY = 0;
+            if (transform.position.y > 0) lastY = true;
+            else lastY = false;
         }
     }
-    private void OnMouseDown()
+    private void OnMouseDown() // To delete when shoting using raycast will be done
     {
         Debug.Log(Gun.currAmmo);
         if (Gun.currAmmo <= 0)

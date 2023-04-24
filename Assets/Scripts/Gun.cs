@@ -1,20 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Gun : MonoBehaviour
-{
-    int magSize = 7;
+{   
+    [SerializeField] TextMeshProUGUI ammoText;
+    [SerializeField] TextMeshProUGUI reloadText;
+
+    [SerializeField] GunType weapon;
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] int totalAmmo;
     public static int currAmmo;
-    int totalAmmo = 4;
-    public TextMeshProUGUI ammoText;
-    public TextMeshProUGUI reloadText;
+    private int magSize;
 
     private void Start()
     {
-        currAmmo = magSize;
         reloadText.gameObject.SetActive(false);
+
+        spriteRenderer.sprite = weapon.gunSprite;
+        magSize = weapon.magSize;
+        currAmmo = magSize;
     }
 
     private void Update()
@@ -22,15 +29,12 @@ public class Gun : MonoBehaviour
         ammoText.text = "Ammo: " + currAmmo.ToString() + "/" + totalAmmo.ToString();
     }
 
-    public void Reload()//IEnumerator start coroutine
+    public void Reload()//In future to reload info text work properly, do this method: IEnumerator start coroutine
     {
-
-
-
 
         if (currAmmo < magSize && totalAmmo > 0)
         {
-            if (magSize > totalAmmo)
+            if (totalAmmo - (magSize - currAmmo) < 0)
             {
                 currAmmo += totalAmmo;
                 totalAmmo = 0;
@@ -41,8 +45,12 @@ public class Gun : MonoBehaviour
                 currAmmo += magSize - currAmmo;
             }
             reloadText.gameObject.SetActive(true);
-
         }
+    }
+
+    public void Shot() 
+    {
+        return;//In future do shoting using raycasting
     }
 
 }

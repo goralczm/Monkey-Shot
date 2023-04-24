@@ -6,7 +6,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static int points;
-    public TextMeshProUGUI pointsText;
+    [SerializeField] TextMeshProUGUI pointsText;
 
     private void Start()
     {
@@ -14,6 +14,6 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        pointsText.text = points.ToString(); 
+        pointsText.text = "Points: " + points.ToString(); 
     }
 }
