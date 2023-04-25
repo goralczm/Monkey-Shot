@@ -7,7 +7,6 @@ public class Monkey : MonoBehaviour
     public GameObject spawner;
     private Vector3 direction;
 
-    [SerializeField] GameObject shotEffect;
     [SerializeField] float speed;
 
     //Usage of lastX and lastY - to refer which wall was last touched by monkey, to avoid changing direction multiple times by one wall
@@ -56,18 +55,10 @@ public class Monkey : MonoBehaviour
             else lastY = false;
         }
     }
-    private void OnMouseDown() // To delete when shoting using raycast will be done
-    {
-        Debug.Log(Gun.currAmmo);
-        if (Gun.currAmmo <= 0)
-        {
-            
-            return; 
-        }
+
+    public void KillMonkey() 
+    { 
         EnemySpawner.enemyCount--;
-        GameManager.points++;
-        Gun.currAmmo--;
-        Instantiate(shotEffect,transform.position,Quaternion.identity);
         Destroy(gameObject);
-    }
+    } 
 }
