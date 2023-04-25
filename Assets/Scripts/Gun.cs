@@ -18,9 +18,11 @@ public class Gun : MonoBehaviour
     private int magSize;
     private bool canShot; // stores info if you can start shot function (e.g. you can't during reloading)
     private bool isShooting; // stores info if is shot function still going
+    private bool isReloading;// stores info if gun is reloading;
 
     private void Start()
     {
+        isReloading = false;
         canShot = true;
         isShooting = false;
         reloadText.gameObject.SetActive(false);
@@ -42,9 +44,10 @@ public class Gun : MonoBehaviour
     public IEnumerator Reload()
     {
 
-        if (totalAmmo <= 0 || currAmmo >= magSize || isShooting) yield break;
+        if (totalAmmo <= 0 || currAmmo >= magSize || isShooting || isReloading) yield break;
         reloadText.gameObject.SetActive(true);
         canShot = false;
+        isReloading = true;
         yield return new WaitForSeconds(1f);
 
         reloadText.gameObject.SetActive(false);
@@ -61,6 +64,7 @@ public class Gun : MonoBehaviour
         }
         
         canShot = true;
+        isReloading = false;
         
     }
 
