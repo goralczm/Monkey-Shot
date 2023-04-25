@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -1130470489606466703}
   - component: {fileID: -989362193723136386}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8638434cdd21c41a6b27a5b272aacf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 5
   planeDimensions: {fileID: 0}
 --- !u!61 &-989362193723136386
 BoxCollider2D:

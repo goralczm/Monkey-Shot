@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class enemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     public float speed = 1f;
     
@@ -13,10 +13,13 @@ public class enemy : MonoBehaviour
 
     public Transform planeDimensions;
 
+    
+
     private void Start()
     {
         GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
         dir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+
 
     }
     void Update()
