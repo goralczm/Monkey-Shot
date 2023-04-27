@@ -50,3 +50,6 @@ TagManager:
   - name: UI
     uniqueID: 779371017
     locked: 0
+  - name: New Layer 4
+    uniqueID: 2505818449
+    locked: 0

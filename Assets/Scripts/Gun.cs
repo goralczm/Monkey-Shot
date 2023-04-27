@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.Animations;
+using System.Threading.Tasks;
 
 public class Gun : MonoBehaviour
 {   
@@ -10,7 +10,7 @@ public class Gun : MonoBehaviour
     [SerializeField] TextMeshProUGUI reloadText;
 
     [SerializeField] GameObject shotEffect;
-    ParticleSystem.MainModule shotPSMain;
+    private ParticleSystem.MainModule shotPSMain;
 
     [SerializeField] GunType weapon;
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -47,22 +47,25 @@ public class Gun : MonoBehaviour
     {
         ammoText.text = "Ammo: " + currAmmo.ToString() + "/" + totalAmmo.ToString();
         if (Input.GetMouseButtonDown(0))
-            StartCoroutine(Shot());
+            Shot();
         if (Input.GetKeyDown(KeyCode.R))
-            StartCoroutine(Reload());
+            Reload();
 
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = startPos + (mousePos*0.2f) + (Vector2)cameraTransform.position;
-    }
+        if (!PauseMenu.isPaused)
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = startPos + (mousePos * 0.2f) + (Vector2)cameraTransform.position;
+        }
+    }   
 
-    public IEnumerator Reload()
+    public async void Reload()
     {
 
-        if (totalAmmo <= 0 || currAmmo >= magSize || isShooting || isReloading) yield break;
+        if (totalAmmo <= 0 || currAmmo >= magSize || isShooting || isReloading || PauseMenu.isPaused) return;
         reloadText.gameObject.SetActive(true);
         canShot = false;
         isReloading = true;
-        yield return new WaitForSeconds(1f);
+        await Task.Delay(1000);
 
         reloadText.gameObject.SetActive(false);
 
@@ -82,10 +85,9 @@ public class Gun : MonoBehaviour
         
     }
 
-    public IEnumerator Shot()
+    public async void Shot()
     {
-        //Debug.Log("x= " + Input.mousePosition.x + "   y=" + Input.mousePosition.y);
-        if (Gun.currAmmo > 0 && canShot)
+        if (Gun.currAmmo > 0 && canShot && !PauseMenu.isPaused)
         {
             isShooting = true;
             anim.Play("Gun_Shot");
@@ -106,7 +108,7 @@ public class Gun : MonoBehaviour
             currAmmo--;
             Instantiate(shotEffect, rayOrigin.origin, Quaternion.identity);
             canShot = false;
-            yield return new WaitForSeconds(0.2f);
+            await Task.Delay(200);
             canShot = true;
             isShooting = false;
 
