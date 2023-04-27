@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.Animations;
 
 public class Gun : MonoBehaviour
 {   
@@ -20,16 +21,26 @@ public class Gun : MonoBehaviour
     private bool isShooting; // stores info if is shot function still going
     private bool isReloading;// stores info if gun is reloading;
 
+    public Transform cameraTransform;
+    private Vector2 startPos;
+
+    private Animator anim;
     private void Start()
     {
+        anim = GetComponent<Animator>();
+
         isReloading = false;
         canShot = true;
         isShooting = false;
         reloadText.gameObject.SetActive(false);
         shotPSMain = shotEffect.GetComponent<ParticleSystem>().main;
+
         spriteRenderer.sprite = weapon.gunSprite;
         magSize = weapon.magSize;
         currAmmo = magSize;
+        anim.runtimeAnimatorController = weapon.animController;
+        startPos = (Vector2)transform.position + new Vector2(1,-0.5f) ;
+
     }
 
     private void Update()
@@ -39,6 +50,9 @@ public class Gun : MonoBehaviour
             StartCoroutine(Shot());
         if (Input.GetKeyDown(KeyCode.R))
             StartCoroutine(Reload());
+
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = startPos + (mousePos*0.2f) + (Vector2)cameraTransform.position;
     }
 
     public IEnumerator Reload()
@@ -70,15 +84,17 @@ public class Gun : MonoBehaviour
 
     public IEnumerator Shot()
     {
+        //Debug.Log("x= " + Input.mousePosition.x + "   y=" + Input.mousePosition.y);
         if (Gun.currAmmo > 0 && canShot)
         {
             isShooting = true;
+            anim.Play("Gun_Shot");
             Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hitInfo = Physics2D.Raycast(rayOrigin.origin, rayOrigin.direction, Mathf.Infinity);
+            RaycastHit2D hitInfos = Physics2D.Raycast(rayOrigin.origin, rayOrigin.direction, Mathf.Infinity);
 
-            if (hitInfo.collider != null)
+            if (hitInfos.collider != null)
             {
-                Monkey target = hitInfo.transform.GetComponent<Monkey>();
+                Monkey target = hitInfos.transform.GetComponent<Monkey>();
                 target.KillMonkey();
                 GameManager.points++;
                 shotPSMain.startColor = Color.red;
@@ -90,7 +106,7 @@ public class Gun : MonoBehaviour
             currAmmo--;
             Instantiate(shotEffect, rayOrigin.origin, Quaternion.identity);
             canShot = false;
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.2f);
             canShot = true;
             isShooting = false;
 

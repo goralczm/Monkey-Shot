@@ -15,3 +15,4 @@ MonoBehaviour:
   gunName: Glock
   gunSprite: {fileID: 21300000, guid: 18823bf9ebf55b54a96bff0c329c821b, type: 3}
   magSize: 24
+  animController: {fileID: 9100000, guid: 622bdbdd0dcfbcc449eae0482c7c0074, type: 2}
