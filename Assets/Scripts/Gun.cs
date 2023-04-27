@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-
-
+    public static int damage;
+    public int jakiDamage = 1;
+    private void Start()
+    {
+        damage = jakiDamage;
+    }
     void Update()
     {
 
@@ -30,4 +34,5 @@ public class Gun : MonoBehaviour
 
 
     }
+    
 }

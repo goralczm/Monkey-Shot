@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 
@@ -13,13 +14,15 @@ public class Enemy : MonoBehaviour
 
     public Transform planeDimensions;
 
+    public int maxHealth = 3;
+    private int curentHealth;
     
-
     private void Start()
     {
         GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
         dir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
 
+        curentHealth = maxHealth;
 
     }
     void Update()
@@ -43,10 +46,16 @@ public class Enemy : MonoBehaviour
         
         transform.Translate(dir.normalized * Time.deltaTime * speed);
 
+        
     }
     private void OnMouseDown()
     {
-        Destroy(gameObject);
+        curentHealth -= Gun.damage;
+
+        if (curentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
