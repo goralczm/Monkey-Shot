@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
@@ -14,15 +15,19 @@ public class Enemy : MonoBehaviour
 
     public Transform planeDimensions;
 
-    public int maxHealth = 3;
-    private int curentHealth;
-    
+    public int health = 3;
+
+    private SpriteRenderer rend;
+
     private void Start()
     {
-        GetComponent<SpriteRenderer>().color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
+        //GetComponent<SpriteRenderer>().color = Color.orange  new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
         dir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
 
-        curentHealth = maxHealth;
+        rend = GetComponent<SpriteRenderer>();
+        rend.color = Color.white;
+
+        
 
     }
     void Update()
@@ -45,18 +50,35 @@ public class Enemy : MonoBehaviour
         }
         
         transform.Translate(dir.normalized * Time.deltaTime * speed);
-
         
-    }
-    private void OnMouseDown()
-    {
-        curentHealth -= Gun.damage;
 
-        if (curentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
+    public void HitMonkey(int damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+        {
+
+            StopAllCoroutines();
+            Destroy(gameObject);
+
+            return;
+        }
+
+
+        StartCoroutine(HitEffect());
+
+
+    }
+    IEnumerator HitEffect()
+    {
+        rend.color = Color.red;
+        yield return new WaitForSeconds(.3f);
+        rend.color = Color.white;
+    }
+
+
 
 
 }

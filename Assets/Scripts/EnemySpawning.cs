@@ -11,6 +11,8 @@ public class EnemySpawning : MonoBehaviour
 
     void Start()
     {
+
+        howMuchEnemies = Random.Range(1, 6);
         for(int i = 0; i < howMuchEnemies; i++)
         {
             Enemy nowaMalpa = Instantiate(enemyToSpawn, transform.position, Quaternion.identity).GetComponent<Enemy>();
