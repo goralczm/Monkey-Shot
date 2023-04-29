@@ -11,7 +11,7 @@ public class Gun : MonoBehaviour
 
     public static Vector2 mouseLocation;
     public float rateOfFire = 1f;
-    public float shootDelay = 0;         //shooting
+    public float countdown = 0;         //shooting
     bool canShoot = true;
     bool isReloading = false;
     bool canMove = true;
@@ -46,6 +46,11 @@ public class Gun : MonoBehaviour
 
         if (canMove)
             transform.position = newPos;
+        else
+        {
+            //movement when reloading
+            transform.position = new Vector2(newPos.x, -17);
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -61,17 +66,17 @@ public class Gun : MonoBehaviour
             }
         }
 
-        ammoText.text = "Ammo: " + ammoInMag.ToString() + "/" + totalAmmo.ToString();
+        ammoText.text = "AMMO: " + ammoInMag.ToString() + "/" + totalAmmo.ToString();
         if (ammoInMag > 0)
         {
-            if (shootDelay <= 0 && isReloading==false)
+            if (countdown <= 0 && isReloading==false)
             {
                 canShoot = true;
                 //reloadText.text = "Ready to shoot!";
             }
-            if (shootDelay > 0)
+            if (countdown > 0)
             {
-                shootDelay -= Time.deltaTime;
+                countdown -= Time.deltaTime;
                 //reloadText.text = "Next bullet: " + countdown.ToString("F1");
             }
         }
@@ -79,11 +84,11 @@ public class Gun : MonoBehaviour
         {
             if(totalAmmo==0)
             {
-                reloadText.text = "Out Of Ammo!";
+                reloadText.text = "OUT OF AMMO!";
             }
             else if (isReloading == false)
             {
-                reloadText.text = "Need to reload!";
+                reloadText.text = "NEED TO RELOAD!";
             }
         }
     }
@@ -97,18 +102,17 @@ public class Gun : MonoBehaviour
             {
                 Monkey target = hit.transform.GetComponent<Monkey>();
                 target.KillMonkey();
-                enemySpawner.SpawnEnemy();
             }
             Instantiate(shootEffect, ray.origin, Quaternion.identity);
             ammoInMag--;
             canShoot = false;
-            shootDelay = rateOfFire;
+            countdown = rateOfFire;
         }
     }
     IEnumerator Reload()
     {
         isReloading = true;
-        reloadText.text = "Reloading";
+        reloadText.text = "RELOADING";
         canMove = false;
         transform.position = new Vector3(transform.position.x, -17);
         yield return new WaitForSeconds(reloadTime);
@@ -136,7 +140,7 @@ public class Gun : MonoBehaviour
         reloadTime = gunType.reloadTime;
         magSize = gunType.magSize;
         ammoInMag = magSize;
-        shootDelay = rateOfFire;
+        countdown = rateOfFire;
         crosshairRend.sprite = gunType.crosshair;
         handRend.sprite = gunType.handSprite;
     }

@@ -4,11 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public enum MovementEnum
+{
+    Backtracking,
+    Linear,
+    Circle
+}
 public class GameManager : MonoBehaviour
 {
     public int startingMoney = 0;
     public static int money = 0;
     public TextMeshProUGUI moneyText;
+    
 
     void Start()
     {
@@ -16,6 +23,8 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        moneyText.SetText("Points: " + money.ToString());
+        moneyText.SetText("POINTS: " + money.ToString());
     }
 }
+
+

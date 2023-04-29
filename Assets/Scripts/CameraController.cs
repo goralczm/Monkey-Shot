@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float panSpeed = 30f;
+    public float panSpeed = 35f;
     public float maxCameraMove;
 
     public Transform square;
