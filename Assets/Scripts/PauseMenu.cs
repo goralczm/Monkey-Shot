@@ -7,6 +7,7 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     public static bool isPaused;
+    private bool isResuming;
     [SerializeField] GameObject pauseMenuUI;
     [SerializeField] GameObject crosshair;
     [SerializeField] Animator anim;
@@ -14,6 +15,7 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         isPaused = false;
+        isResuming = false;
     }
 
     void Update()
@@ -22,7 +24,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (isPaused) 
             {
-                Resume();
+                StartCoroutine(Resume());
             }
             else
             {
@@ -31,18 +33,26 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    public async void Resume() 
+    IEnumerator Resume() 
     {
         Time.timeScale = 1f;
         anim.Play("PauseMenu_FadeOut");
-        await Task.Delay(260);
+        isResuming = true;
+        yield return new WaitForSeconds(0.26f);
+        isResuming = false;
         pauseMenuUI.SetActive(false);
         
         isPaused = false;
         crosshair.SetActive(true);
         Cursor.visible = false;
     }
-
+    public void ResumeWrapper() 
+    {
+        if (!isResuming)
+        {
+            StartCoroutine(Resume());
+        }   
+    }
     void Pause()
     {
         pauseMenuUI.SetActive(true);

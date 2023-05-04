@@ -14,6 +14,6 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        pointsText.text = "Points: " + points.ToString();
+        pointsText.SetText( "Points: " + points.ToString());
     }
 }

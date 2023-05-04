@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd56cbe3abdbe14a86d7e1bb165c09e, type: 3}
-  m_Name: Glock
+  m_Script: {fileID: 11500000, guid: e5124d69f9d2365409e28873fdf91f51, type: 3}
+  m_Name: GorillaMonkey
   m_EditorClassIdentifier: 
-  gunName: Glock
-  gunSprite: {fileID: 21300000, guid: 18823bf9ebf55b54a96bff0c329c821b, type: 3}
-  magSize: 24
-  animController: {fileID: 9100000, guid: 622bdbdd0dcfbcc449eae0482c7c0074, type: 2}
+  enemyName: Gorilla
+  enemySprite: {fileID: 21300000, guid: 59a674ebe0308314e8ce1121884bac4c, type: 3}
+  enemyMaxHP: 6
+  enemyPoints: 5

@@ -13,8 +13,8 @@ public class Gun : MonoBehaviour
     private ParticleSystem.MainModule shotPSMain;
 
     [SerializeField] GunType weapon;
-    [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] int totalAmmo;
+    SpriteRenderer spriteRenderer;
+    public static int totalAmmo;
     public static int currAmmo;
     private int magSize;
     private bool canShot; // stores info if you can start shot function (e.g. you can't during reloading)
@@ -35,21 +35,23 @@ public class Gun : MonoBehaviour
         reloadText.gameObject.SetActive(false);
         shotPSMain = shotEffect.GetComponent<ParticleSystem>().main;
 
-        spriteRenderer.sprite = weapon.gunSprite;
+        totalAmmo = 14;
         magSize = weapon.magSize;
-        currAmmo = magSize;
         anim.runtimeAnimatorController = weapon.animController;
+
+        currAmmo = magSize;
+
         startPos = (Vector2)transform.position + new Vector2(1,-0.5f) ;
 
     }
 
     private void Update()
     {
-        ammoText.text = "Ammo: " + currAmmo.ToString() + "/" + totalAmmo.ToString();
+        ammoText.SetText( "Ammo: " + currAmmo.ToString() + "/" + totalAmmo.ToString());
         if (Input.GetMouseButtonDown(0))
-            Shot();
+            StartCoroutine(Shot());
         if (Input.GetKeyDown(KeyCode.R))
-            Reload();
+            StartCoroutine(Reload());
 
         if (!PauseMenu.isPaused)
         {
@@ -58,14 +60,14 @@ public class Gun : MonoBehaviour
         }
     }   
 
-    public async void Reload()
+    public IEnumerator Reload()
     {
 
-        if (totalAmmo <= 0 || currAmmo >= magSize || isShooting || isReloading || PauseMenu.isPaused) return;
+        if (totalAmmo <= 0 || currAmmo >= magSize || isShooting || isReloading || PauseMenu.isPaused || Shop.shopVisible) yield break;
         reloadText.gameObject.SetActive(true);
         canShot = false;
         isReloading = true;
-        await Task.Delay(1000);
+        yield return new WaitForSeconds(1);
 
         reloadText.gameObject.SetActive(false);
 
@@ -85,9 +87,9 @@ public class Gun : MonoBehaviour
         
     }
 
-    public async void Shot()
+    public IEnumerator Shot()
     {
-        if (Gun.currAmmo > 0 && canShot && !PauseMenu.isPaused)
+        if (Gun.currAmmo > 0 && canShot && !PauseMenu.isPaused && !Shop.shopVisible)
         {
             isShooting = true;
             anim.Play("Gun_Shot");
@@ -97,8 +99,14 @@ public class Gun : MonoBehaviour
             if (hitInfos.collider != null)
             {
                 Monkey target = hitInfos.transform.GetComponent<Monkey>();
-                target.KillMonkey();
-                GameManager.points++;
+                target.enemyHP -= weapon.gunDamage;
+                target.anim.Play("Enemy_Damage");
+                
+                if (target.enemyHP <= 0) 
+                {
+                    target.KillMonkey();
+                    GameManager.points += target.enemyType.enemyPoints;
+                }
                 shotPSMain.startColor = Color.red;
             }
             else 
@@ -108,7 +116,7 @@ public class Gun : MonoBehaviour
             currAmmo--;
             Instantiate(shotEffect, rayOrigin.origin, Quaternion.identity);
             canShot = false;
-            await Task.Delay(200);
+            yield return new WaitForSeconds(weapon.shotCooldown);
             canShot = true;
             isShooting = false;
 

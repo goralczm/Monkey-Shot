@@ -9,12 +9,20 @@ public class Monkey : MonoBehaviour
 
     [SerializeField] float speed;
 
+    public Animator anim;
+
+    public EnemyType enemyType;
+    SpriteRenderer enemySpriteRenderer;
+    public int enemyHP;
+
     //Usage of lastX and lastY - to refer which wall was last touched by monkey, to avoid changing direction multiple times by one wall
     bool lastX = false; // Last touched wall by monkey, false - left wall, true - right wall 
     bool lastY = false; // Last touched wall by monkey, false - down wall, true - up wall 
 
     void Start()
     {
+        anim = GetComponent<Animator>();
+
         float x;
         float y;
         do
@@ -32,6 +40,10 @@ public class Monkey : MonoBehaviour
         if (y < 0) lastY = true;
 
         direction = new Vector3(x, y, 0);
+
+        enemySpriteRenderer = GetComponent<SpriteRenderer>();
+        enemySpriteRenderer.sprite = enemyType.enemySprite;
+        enemyHP = enemyType.enemyMaxHP;
     }
 
     void Update()
