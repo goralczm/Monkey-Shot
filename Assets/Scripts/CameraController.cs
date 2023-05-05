@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        maxCameraMove = (15/square.localScale.x) * 100;
+        maxCameraMove = 6;
     }
     void Update()
     {

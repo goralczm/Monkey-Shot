@@ -35,17 +35,6 @@ public class MonkeyMovement : MonoBehaviour
         freezeIndex = monkey.freezeIndex;
         isFreezing = monkey.isFreezing;
         howLongToFreeze = monkey.howLongToFreeze;
-        if (xDivider <= 0)
-        {
-            xDivider = 1;
-            Debug.Log("xDivider is less or equal to 0");
-        }
-            
-        if(yDivider <= 0)
-        {
-            yDivider = 1;
-            Debug.Log("yDivider is less or equal to 0");
-        }
     }
 
     private void Update()

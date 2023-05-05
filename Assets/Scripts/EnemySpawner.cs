@@ -31,6 +31,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     float howLongToFreeze;
 
+    [Header("Vine")]
+    public bool useVine;
+    public LineRenderer lineRenderer;
+    public Transform vinePoint;
+
     void Awake()
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -56,6 +61,9 @@ public class EnemySpawner : MonoBehaviour
         tempMonkey.isFreezing = isFreezing;
         tempMonkey.freezeIndex = freezeIndex;
         tempMonkey.howLongToFreeze = howLongToFreeze;
+        tempMonkey.useVine = useVine;
+        tempMonkey.lineRenderer = lineRenderer;
+        tempMonkey.vinePoint = vinePoint;
         isTaken = true;
     }
     /*public void SpawnEnemyInRandomLocation()

@@ -21,6 +21,10 @@ public class Monkey : MonoBehaviour
     public int freezeIndex;
     public bool isFreezing;
     public float howLongToFreeze;
+    public GameObject monkeyHitEffect;
+    public bool useVine;
+    public LineRenderer lineRenderer;
+    public Transform vinePoint;
     void Start()
     {
         //direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
@@ -28,6 +32,16 @@ public class Monkey : MonoBehaviour
 
     void Update()
     {
+        if(useVine)
+        {
+            if (!lineRenderer.enabled)
+            {
+                lineRenderer.enabled = true;
+            }
+
+            lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, 2));
+            lineRenderer.SetPosition(1, new Vector3(vinePoint.position.x, vinePoint.position.y, 2));
+        }
         /*if (!canEnemyMove)
             return;
 
@@ -46,9 +60,20 @@ public class Monkey : MonoBehaviour
 
     }
 
+    public void PlayHit(Vector3 hitPosition)
+    {
+        Instantiate(monkeyHitEffect, hitPosition, Quaternion.identity);
+    }
 
     public void KillMonkey()
     {
+        if (useVine)
+        {
+            if (lineRenderer.enabled)
+            {
+                lineRenderer.enabled = false;
+            }
+        }
         GameManager.money++;
         SpawnManager.currentMonkeyCount--;
         originSpawner.isTaken = false;

@@ -15,6 +15,8 @@ public class Gun : MonoBehaviour
     bool canShoot = true;
     bool isReloading = false;
     bool canMove = true;
+    public int obstacleLayer;
+    public int enemyLayer;
 
     public int totalAmmo=20;
     public int ammoInMag;
@@ -96,12 +98,31 @@ public class Gun : MonoBehaviour
     {
         if (canShoot)
         {
+            Shake.start = true;
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-            if (hit.collider != null)
+            RaycastHit2D[] hit = Physics2D.RaycastAll(ray.origin, ray.direction, Mathf.Infinity);
+            RaycastHit2D target = new();
+
+            for(int i = 0; i < hit.Length; i++)
             {
-                Monkey target = hit.transform.GetComponent<Monkey>();
-                target.KillMonkey();
+                if (hit[i].transform.gameObject.layer == obstacleLayer)
+                {
+                    Instantiate(shootEffect, ray.origin, Quaternion.identity);
+                    ammoInMag--;
+                    canShoot = false;
+                    countdown = rateOfFire;
+                    return;
+                }
+                if (hit[i].transform.gameObject.layer == enemyLayer)
+                    target = hit[i];
+            }
+
+            if (target.collider != null)
+            {
+                Monkey targetEnemy = target.transform.GetComponent<Monkey>();
+                targetEnemy.KillMonkey();
+                targetEnemy.PlayHit(ray.origin);
             }
             Instantiate(shootEffect, ray.origin, Quaternion.identity);
             ammoInMag--;
