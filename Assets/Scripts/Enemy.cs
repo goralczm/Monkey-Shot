@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.PlasticSCM.Editor.WebApi;
+using TMPro;
 using UnityEngine;
 
 
@@ -19,6 +20,12 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer rend;
 
+    public static int points = 0;
+
+    public EnemySpawning spawner;
+
+
+
     private void Start()
     {
         //GetComponent<SpriteRenderer>().color = Color.orange  new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f));
@@ -27,13 +34,9 @@ public class Enemy : MonoBehaviour
         rend = GetComponent<SpriteRenderer>();
         rend.color = Color.white;
 
-        
-
     }
     void Update()
     {
-
-
 
         cooldownTimer -= Time.deltaTime;
         if (cooldownTimer <= 0)
@@ -50,7 +53,6 @@ public class Enemy : MonoBehaviour
         }
         
         transform.Translate(dir.normalized * Time.deltaTime * speed);
-        
 
     }
     public void HitMonkey(int damage)
@@ -59,16 +61,18 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
-
+            
             StopAllCoroutines();
             Destroy(gameObject);
+
+            points += 1;
+
+            spawner.spawnMonkey();
 
             return;
         }
 
-
         StartCoroutine(HitEffect());
-
 
     }
     IEnumerator HitEffect()
