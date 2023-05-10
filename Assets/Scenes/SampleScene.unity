@@ -927,12 +927,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: {fileID: 11400000, guid: 9f30b73dd1ba86a48b13f8ebfc38ab93, type: 2}
-  damage: 1
   maxAmmo: 10
   magazineText: {fileID: 1986628868}
   ammoText: {fileID: 1989431517}
   scoreText: {fileID: 466672076}
-  reloadSpeed: 2
 --- !u!114 &762701964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1210,6 +1208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1718794299}
   - component: {fileID: 1718794298}
+  - component: {fileID: 1718794300}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1245,6 +1244,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1718794300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718794297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf82708ab61609d469685b19663ed0e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterMixer: {fileID: 24100000, guid: db54f1cb010a27c488a45eaef419ed71, type: 2}
+  SFXGroup: {fileID: -1904684913407747409, guid: db54f1cb010a27c488a45eaef419ed71, type: 2}
+  musicGroup: {fileID: 1069554781033026982, guid: db54f1cb010a27c488a45eaef419ed71, type: 2}
+  sounds: []
+  themes:
+  - name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &1986628866
 GameObject:
   m_ObjectHideFlags: 0

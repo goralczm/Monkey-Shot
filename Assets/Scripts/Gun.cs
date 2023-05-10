@@ -8,21 +8,21 @@ public class Gun : MonoBehaviour
 {
     public GunTemplate gunType;
 
-    public int damage = 1;
+    
 
     public int maxAmmo = 50;
-    private int magCapacity = 8;
+    
     private int currAmmo;
 
     public TextMeshProUGUI magazineText;
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI scoreText;
 
-    public float reloadSpeed = 2f;
+    
     private bool isReloading;
     private void Start()
     {
-        currAmmo = magCapacity;
+       
 
         Enemy.points = 0;
 
@@ -70,12 +70,12 @@ public class Gun : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-
+        //AudioManager.instance.Play(gunType.shotSound);
 
         if (hit.collider != null)
         {
             Enemy target = hit.transform.GetComponent<Enemy>();
-            target.HitMonkey(damage);
+            target.HitMonkey(gunType.damage);
         }
         currAmmo -= 1;
 
@@ -93,31 +93,32 @@ public class Gun : MonoBehaviour
         magazineText.SetText("OUT OF AMMO");
         ammoText.SetText("OUT OF AMMO");
         transform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
-        yield return new WaitForSeconds(reloadSpeed);
+        yield return new WaitForSeconds(gunType.reloadSpeed);
         transform.position = new Vector2(transform.position.x, transform.position.y + 0.5f);
 
-        maxAmmo -= magCapacity;
+        //AudioManager.instance.Play(gunType.reloadSound);
+
+        maxAmmo -= gunType.magCapacity;
         if (maxAmmo < 0)
         {
-            currAmmo = magCapacity - Mathf.Abs(maxAmmo);
+            currAmmo = gunType.magCapacity - Mathf.Abs(maxAmmo);
             maxAmmo = 0;
 
         }
         else
         {
-            currAmmo = magCapacity;
+            currAmmo = gunType.magCapacity;
         }
         
         isReloading = false;
+        //AudioManager.instance.Stop(gunType.reloadSound);
     }
 
     public void PopulateInfo(GunTemplate newGun)
     {
         gunType = newGun;
+        currAmmo = gunType.magCapacity;
 
-        damage = gunType.damage;
-        reloadSpeed = gunType.reloadSpeed;
-        magCapacity = gunType.magCapacity;
         maxAmmo = gunType.maxAmmo;
     }
 

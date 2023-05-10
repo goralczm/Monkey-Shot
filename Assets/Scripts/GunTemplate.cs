@@ -10,6 +10,8 @@ public class GunTemplate: ScriptableObject
     public int reloadSpeed;
     public int magCapacity;
     public int maxAmmo;
+    //public string shotSound;
+    //public string reloadSound;
 
     public Sprite nazwaSprite;
 

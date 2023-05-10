@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Shotgun
   damage: 3
-  reloadSpeed: 3
+  reloadSpeed: 2
   magCapacity: 8
   maxAmmo: 40
+  shotSound: 
+  reloadSound: 
   nazwaSprite: {fileID: 21300000, guid: 753e185ab0206ce4f9b2db56adecf8a9, type: 3}
