@@ -32,6 +32,10 @@ public class Gun : MonoBehaviour
     void Update()
     {
 
+        if(Time.timeScale == 0f){
+            return;
+        }
+
         magazineText.SetText("Magazine: " + currAmmo.ToString());
         ammoText.SetText("Ammo left: " + maxAmmo.ToString());
         scoreText.SetText("Score: " + Enemy.points.ToString());
