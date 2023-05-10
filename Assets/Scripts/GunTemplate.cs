@@ -10,4 +10,7 @@ public class GunTemplate : ScriptableObject
     public GameObject shootEffect;
     public Sprite crosshair;
     public Sprite handSprite;
+    public RuntimeAnimatorController animController;
+    public string shotSound;
+    public string reloadSound;
 }

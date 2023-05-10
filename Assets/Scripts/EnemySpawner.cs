@@ -7,20 +7,21 @@ public class EnemySpawner : MonoBehaviour
     public GameObject Monkey;
     public Transform square;
     public List<Transform> points;
+    public GameObject monkeySpawnEffect;
     [HideInInspector]
     public bool isTaken;
-    
-    [SerializeField]
-    MovementEnum MovementType = new MovementEnum();
 
-    [SerializeField]
-    Transform rotationCenter;
+    [HideInInspector]
+    public MovementEnum movementType;
 
-    [SerializeField]
-    float rotationRadius = 2f, angularSpeed = 2f;
+    [HideInInspector]
+    public Transform rotationCenter;
 
-    [SerializeField]
-    float xDivider, yDivider = 1f;
+    [HideInInspector]
+    public float rotationRadius = 2f, angularSpeed = 2f;
+
+    [HideInInspector]
+    public float xDivider, yDivider = 1f;
 
     [SerializeField]
     bool isFreezing;
@@ -33,7 +34,6 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Vine")]
     public bool useVine;
-    public LineRenderer lineRenderer;
     public Transform vinePoint;
 
     void Awake()
@@ -48,11 +48,12 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnMonkeyOnPosition()
 
     {
+        Instantiate(monkeySpawnEffect, transform.position, new Quaternion(-1, Quaternion.identity.y, Quaternion.identity.z, 1));
         Monkey tempMonkey = Instantiate(Monkey, transform.position, Quaternion.identity).GetComponent<Monkey>();
         tempMonkey.square = square;
         tempMonkey.waypoints = points;
         tempMonkey.originSpawner = this;
-        tempMonkey.MovementType = MovementType;
+        tempMonkey.MovementType = movementType;
         tempMonkey.rotationCenter = rotationCenter;
         tempMonkey.rotationRadius = rotationRadius;
         tempMonkey.angularSpeed = angularSpeed;
@@ -62,7 +63,6 @@ public class EnemySpawner : MonoBehaviour
         tempMonkey.freezeIndex = freezeIndex;
         tempMonkey.howLongToFreeze = howLongToFreeze;
         tempMonkey.useVine = useVine;
-        tempMonkey.lineRenderer = lineRenderer;
         tempMonkey.vinePoint = vinePoint;
         isTaken = true;
     }

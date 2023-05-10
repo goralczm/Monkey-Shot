@@ -34,13 +34,10 @@ public class Monkey : MonoBehaviour
     {
         if(useVine)
         {
-            if (!lineRenderer.enabled)
-            {
-                lineRenderer.enabled = true;
-            }
+            lineRenderer.enabled = true;
 
-            lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, 2));
-            lineRenderer.SetPosition(1, new Vector3(vinePoint.position.x, vinePoint.position.y, 2));
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, vinePoint.position);
         }
         /*if (!canEnemyMove)
             return;
@@ -60,20 +57,9 @@ public class Monkey : MonoBehaviour
 
     }
 
-    public void PlayHit(Vector3 hitPosition)
-    {
-        Instantiate(monkeyHitEffect, hitPosition, Quaternion.identity);
-    }
-
     public void KillMonkey()
     {
-        if (useVine)
-        {
-            if (lineRenderer.enabled)
-            {
-                lineRenderer.enabled = false;
-            }
-        }
+        Instantiate(monkeyHitEffect, transform.position, Quaternion.identity);
         GameManager.money++;
         SpawnManager.currentMonkeyCount--;
         originSpawner.isTaken = false;

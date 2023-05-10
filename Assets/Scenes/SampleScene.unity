@@ -203,8 +203,9 @@ MonoBehaviour:
   Monkey: {fileID: 884173772441272164, guid: a7bc09621df377742b4a5da098677cd1, type: 3}
   square: {fileID: 1793080479}
   points: []
+  monkeySpawnEffect: {fileID: 7973560945722829355, guid: 071738c77dcaba54c930a58942fe16d6, type: 3}
   isTaken: 0
-  MovementType: 0
+  movementType: 0
   rotationCenter: {fileID: 0}
   rotationRadius: 2
   angularSpeed: 2
@@ -214,39 +215,7 @@ MonoBehaviour:
   freezeIndex: 0
   howLongToFreeze: 2
   useVine: 0
-  lineRenderer: {fileID: 0}
   vinePoint: {fileID: 0}
---- !u!1 &68799042
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 68799043}
-  m_Layer: 0
-  m_Name: Waypoint (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &68799043
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 68799042}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.86, y: -0.34, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1260750906}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &71053489
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,6 +289,7 @@ GameObject:
   - component: {fileID: 178526840}
   - component: {fileID: 178526841}
   - component: {fileID: 178526842}
+  - component: {fileID: 178526843}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -379,6 +349,29 @@ MonoBehaviour:
   - {fileID: 1484550734}
   - {fileID: 2097405326}
   - {fileID: 35216938}
+--- !u!114 &178526843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178526839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 409e4991f1acc3246a05cae7350884db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterMixer: {fileID: 24100000, guid: 33706f9112909ef48b4a2dc2739cad53, type: 2}
+  SFXGroup: {fileID: 6753728225247356264, guid: 33706f9112909ef48b4a2dc2739cad53, type: 2}
+  musicGroup: {fileID: -2638836147922667517, guid: 33706f9112909ef48b4a2dc2739cad53, type: 2}
+  sounds:
+  - name: Pistol Shot
+    clip: {fileID: 8300000, guid: 80d24c52b37172543a101a6cfb25dcad, type: 3}
+    volume: 0.01
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  themes: []
 --- !u!1 &212698869
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,9 +499,8 @@ RectTransform:
   - {fileID: 1902111977}
   - {fileID: 280640658}
   - {fileID: 827706087}
-  - {fileID: 976477266}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -754,6 +746,8 @@ GameObject:
   - component: {fileID: 483295485}
   - component: {fileID: 483295484}
   - component: {fileID: 483295486}
+  - component: {fileID: 483295488}
+  - component: {fileID: 483295487}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -821,12 +815,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483295483}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.14, y: -11.69, z: -56.86946}
-  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
+  m_LocalPosition: {x: 18.14, y: -11.69, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &483295486
 MonoBehaviour:
@@ -841,7 +835,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunType: {fileID: 11400000, guid: 990914729865f6f4e9865389f5f0f189, type: 2}
-  rateOfFire: 1
   countdown: 0
   obstacleLayer: 6
   enemyLayer: 7
@@ -849,14 +842,45 @@ MonoBehaviour:
   ammoInMag: 0
   reloadText: {fileID: 1902111978}
   ammoText: {fileID: 280640659}
-  magSize: 3
-  reloadTime: 10
   shootEffect: {fileID: 278650250576229169, guid: fe81a32807b742a4c916d0d6fc0fb692, type: 3}
   enemySpawner: {fileID: 935369485}
   crosshairRend: {fileID: 976477265}
   handRend: {fileID: 483295484}
   cameraTransform: {fileID: 519420032}
   movementSensitivity: 0.2
+--- !u!114 &483295487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483295483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2cdc48e7e2cea2439f8d3058de3089e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 483295488}
+--- !u!95 &483295488
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483295483}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &486438403
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,7 +991,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.99, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1155,7 +1179,7 @@ Transform:
   - {fileID: 2097405324}
   - {fileID: 35216937}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &651475563
 GameObject:
@@ -1213,8 +1237,9 @@ MonoBehaviour:
   Monkey: {fileID: 884173772441272164, guid: a7bc09621df377742b4a5da098677cd1, type: 3}
   square: {fileID: 1793080479}
   points: []
+  monkeySpawnEffect: {fileID: 7973560945722829355, guid: 071738c77dcaba54c930a58942fe16d6, type: 3}
   isTaken: 0
-  MovementType: 0
+  movementType: 0
   rotationCenter: {fileID: 0}
   rotationRadius: 2
   angularSpeed: 2
@@ -1224,7 +1249,6 @@ MonoBehaviour:
   freezeIndex: 0
   howLongToFreeze: 0
   useVine: 0
-  lineRenderer: {fileID: 0}
   vinePoint: {fileID: 0}
 --- !u!1 &673188649
 GameObject:
@@ -1287,37 +1311,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2097405324}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &792044480
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 792044481}
-  m_Layer: 0
-  m_Name: Waypoint (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &792044481
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792044480}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.43, y: -0.24, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1260750906}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &792589169
 GameObject:
@@ -1650,8 +1643,9 @@ MonoBehaviour:
   Monkey: {fileID: 884173772441272164, guid: a7bc09621df377742b4a5da098677cd1, type: 3}
   square: {fileID: 1793080479}
   points: []
+  monkeySpawnEffect: {fileID: 7973560945722829355, guid: 071738c77dcaba54c930a58942fe16d6, type: 3}
   isTaken: 0
-  MovementType: 1
+  movementType: 0
   rotationCenter: {fileID: 0}
   rotationRadius: 2
   angularSpeed: 2
@@ -1661,7 +1655,6 @@ MonoBehaviour:
   freezeIndex: 0
   howLongToFreeze: 0
   useVine: 0
-  lineRenderer: {fileID: 0}
   vinePoint: {fileID: 0}
 --- !u!4 &935369486
 Transform:
@@ -1755,7 +1748,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 95d06562fd3cefb45802c0c1aa1f73a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1775,12 +1768,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976477263}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1725}
-  m_LocalScale: {x: 38.333332, y: 38.333332, z: 19.166666}
+  m_LocalPosition: {x: 5.99, y: 0, z: 4.036545}
+  m_LocalScale: {x: 1.910299, y: 1.910299, z: 0.9551495}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 270066736}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1086810296
 GameObject:
@@ -1875,7 +1868,7 @@ Transform:
   m_Children:
   - {fileID: 1641131063}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1191633563
 GameObject:
@@ -1969,9 +1962,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1106843804}
-  - {fileID: 792044481}
-  - {fileID: 68799043}
-  - {fileID: 1752558140}
   m_Father: {fileID: 604984425}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1990,18 +1980,18 @@ MonoBehaviour:
   Monkey: {fileID: 884173772441272164, guid: a7bc09621df377742b4a5da098677cd1, type: 3}
   square: {fileID: 1793080479}
   points: []
+  monkeySpawnEffect: {fileID: 7973560945722829355, guid: 071738c77dcaba54c930a58942fe16d6, type: 3}
   isTaken: 0
-  MovementType: 0
-  rotationCenter: {fileID: 0}
+  movementType: 2
+  rotationCenter: {fileID: 1260750906}
   rotationRadius: 2
-  angularSpeed: 2
-  xDivider: 0
-  yDivider: 0
+  angularSpeed: 10
+  xDivider: 1
+  yDivider: 1
   isFreezing: 0
   freezeIndex: 0
   howLongToFreeze: 0
   useVine: 0
-  lineRenderer: {fileID: 0}
   vinePoint: {fileID: 0}
 --- !u!1 &1276872694
 GameObject:
@@ -2147,8 +2137,9 @@ MonoBehaviour:
   Monkey: {fileID: 884173772441272164, guid: a7bc09621df377742b4a5da098677cd1, type: 3}
   square: {fileID: 1793080479}
   points: []
+  monkeySpawnEffect: {fileID: 7973560945722829355, guid: 071738c77dcaba54c930a58942fe16d6, type: 3}
   isTaken: 0
-  MovementType: 1
+  movementType: 0
   rotationCenter: {fileID: 1373930057}
   rotationRadius: 5
   angularSpeed: 2
@@ -2158,7 +2149,6 @@ MonoBehaviour:
   freezeIndex: 0
   howLongToFreeze: 0
   useVine: 0
-  lineRenderer: {fileID: 0}
   vinePoint: {fileID: 0}
 --- !u!1 &1429334050
 GameObject:
@@ -2273,8 +2263,9 @@ MonoBehaviour:
   Monkey: {fileID: 884173772441272164, guid: a7bc09621df377742b4a5da098677cd1, type: 3}
   square: {fileID: 1793080479}
   points: []
+  monkeySpawnEffect: {fileID: 7973560945722829355, guid: 071738c77dcaba54c930a58942fe16d6, type: 3}
   isTaken: 0
-  MovementType: 0
+  movementType: 0
   rotationCenter: {fileID: 0}
   rotationRadius: 2
   angularSpeed: 2
@@ -2284,7 +2275,6 @@ MonoBehaviour:
   freezeIndex: 0
   howLongToFreeze: 0
   useVine: 0
-  lineRenderer: {fileID: 0}
   vinePoint: {fileID: 0}
 --- !u!1 &1546125892
 GameObject:
@@ -2409,37 +2399,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1183267937}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1752558139
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1752558140}
-  m_Layer: 0
-  m_Name: Waypoint (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1752558140
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752558139}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.079, y: 0.776, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1260750906}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1768952002
 GameObject:
@@ -2665,7 +2624,7 @@ Transform:
   m_GameObject: {fileID: 1886456130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.785927, y: 2.785927, z: 2.785927}
+  m_LocalScale: {x: 2.8812554, y: 2.7928116, z: 2.785927}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3316,18 +3275,18 @@ MonoBehaviour:
   Monkey: {fileID: 884173772441272164, guid: a7bc09621df377742b4a5da098677cd1, type: 3}
   square: {fileID: 1793080479}
   points: []
+  monkeySpawnEffect: {fileID: 7973560945722829355, guid: 071738c77dcaba54c930a58942fe16d6, type: 3}
   isTaken: 0
-  MovementType: 0
+  movementType: 0
   rotationCenter: {fileID: 2097405324}
-  rotationRadius: 2
+  rotationRadius: 0
   angularSpeed: 2
   xDivider: 0
   yDivider: 0
   isFreezing: 0
   freezeIndex: 2
   howLongToFreeze: 60
-  useVine: 0
-  lineRenderer: {fileID: -8756091606540441399, guid: a7bc09621df377742b4a5da098677cd1, type: 3}
+  useVine: 1
   vinePoint: {fileID: 1641131063}
 --- !u!1 &2107245183
 GameObject:

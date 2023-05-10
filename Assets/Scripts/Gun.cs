@@ -10,7 +10,6 @@ public class Gun : MonoBehaviour
     public GunTemplate gunType;
 
     public static Vector2 mouseLocation;
-    public float rateOfFire = 1f;
     public float countdown = 0;         //shooting
     bool canShoot = true;
     bool isReloading = false;
@@ -22,8 +21,6 @@ public class Gun : MonoBehaviour
     public int ammoInMag;
     public TextMeshProUGUI reloadText;
     public TextMeshProUGUI ammoText;
-    public int magSize = 7;
-    public float reloadTime;
 
     public GameObject shootEffect;
     public EnemySpawner enemySpawner;
@@ -33,10 +30,12 @@ public class Gun : MonoBehaviour
     //HandMovement
     [Range(0.2f, 1f)] public float movementSensitivity;
 
+    private AnimationController _animController;
     private Vector2 startPos;
 
     private void Start()
     {
+        _animController = GetComponent<AnimationController>();
         PopulateInfo(gunType);
         startPos = transform.position;
     }
@@ -61,7 +60,7 @@ public class Gun : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (isReloading == false && ammoInMag!=magSize && totalAmmo!=0)
+            if (isReloading == false && ammoInMag!=gunType.magSize && totalAmmo!=0)
             {
                 canShoot = false;
                 StartCoroutine(Reload());
@@ -98,6 +97,8 @@ public class Gun : MonoBehaviour
     {
         if (canShoot)
         {
+            _animController.ChangeAnimationState("shot");
+            AudioManager.instance.Play(gunType.shotSound);
             Shake.start = true;
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -111,7 +112,7 @@ public class Gun : MonoBehaviour
                     Instantiate(shootEffect, ray.origin, Quaternion.identity);
                     ammoInMag--;
                     canShoot = false;
-                    countdown = rateOfFire;
+                    countdown = gunType.rateOfFire;
                     return;
                 }
                 if (hit[i].transform.gameObject.layer == enemyLayer)
@@ -122,12 +123,11 @@ public class Gun : MonoBehaviour
             {
                 Monkey targetEnemy = target.transform.GetComponent<Monkey>();
                 targetEnemy.KillMonkey();
-                targetEnemy.PlayHit(ray.origin);
             }
             Instantiate(shootEffect, ray.origin, Quaternion.identity);
             ammoInMag--;
             canShoot = false;
-            countdown = rateOfFire;
+            countdown = gunType.rateOfFire;
         }
     }
     IEnumerator Reload()
@@ -136,18 +136,18 @@ public class Gun : MonoBehaviour
         reloadText.text = "RELOADING";
         canMove = false;
         transform.position = new Vector3(transform.position.x, -17);
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(gunType.reloadTime);
 
         totalAmmo += ammoInMag;
-        if (totalAmmo < magSize)
+        if (totalAmmo < gunType.magSize)
         {
             ammoInMag = totalAmmo;
             totalAmmo -= totalAmmo;
         }
         else
         {
-            ammoInMag = magSize;
-            totalAmmo -= magSize;
+            ammoInMag = gunType.magSize;
+            totalAmmo -= gunType.magSize;
         }
         reloadText.text = "";
         isReloading = false;
@@ -157,12 +157,10 @@ public class Gun : MonoBehaviour
     public void PopulateInfo(GunTemplate newGun)
     {
         gunType = newGun;
-        rateOfFire = gunType.rateOfFire;
-        reloadTime = gunType.reloadTime;
-        magSize = gunType.magSize;
-        ammoInMag = magSize;
-        countdown = rateOfFire;
+        ammoInMag = gunType.magSize;
+        countdown = gunType.rateOfFire;
         crosshairRend.sprite = gunType.crosshair;
         handRend.sprite = gunType.handSprite;
+        _animController.anim.runtimeAnimatorController = gunType.animController;
     }
 }
