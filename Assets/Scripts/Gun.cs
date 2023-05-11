@@ -48,10 +48,6 @@ public class Gun : MonoBehaviour
     private void Update()
     {
         ammoText.SetText( "Ammo: " + currAmmo.ToString() + "/" + totalAmmo.ToString());
-        if (Input.GetMouseButtonDown(0))
-            StartCoroutine(Shot());
-        if (Input.GetKeyDown(KeyCode.R))
-            StartCoroutine(Reload());
 
         if (!PauseMenu.isPaused)
         {

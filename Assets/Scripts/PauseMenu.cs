@@ -18,22 +18,7 @@ public class PauseMenu : MonoBehaviour
         isResuming = false;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isPaused) 
-            {
-                StartCoroutine(Resume());
-            }
-            else
-            {
-                Pause();
-            }
-        }
-    }
-
-    IEnumerator Resume() 
+    public IEnumerator Resume() 
     {
         Time.timeScale = 1f;
         anim.Play("PauseMenu_FadeOut");
@@ -53,7 +38,7 @@ public class PauseMenu : MonoBehaviour
             StartCoroutine(Resume());
         }   
     }
-    void Pause()
+    public void Pause()
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;

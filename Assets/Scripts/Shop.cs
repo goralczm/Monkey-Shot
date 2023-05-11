@@ -11,27 +11,13 @@ public class Shop : MonoBehaviour
     {
         shopVisible = false;
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S) && !PauseMenu.isPaused) 
-        {
-            if (shopVisible)
-            {
-                CloseShopPanel();
-            }
-            else 
-            {
-                OpenShopPanel();
-            }
-        }   
-    }
 
-    void OpenShopPanel() 
+    public void OpenShopPanel() 
     {
         shopPanelUI.SetActive(true);
         shopVisible = true;
     }
-    void CloseShopPanel() 
+    public void CloseShopPanel() 
     {
         shopPanelUI.SetActive(false);
         shopVisible = false;
@@ -40,7 +26,7 @@ public class Shop : MonoBehaviour
     {
         if (GameManager.points > 0)
         {
-            Gun.totalAmmo++;
+            Gun.totalAmmo+=10;
             GameManager.points--;
         }
     }

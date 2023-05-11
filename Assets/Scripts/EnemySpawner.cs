@@ -7,7 +7,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int spawnLimit = 5;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] EnemyType[] enemyTypes;
-    
+
+    public static Transform spawner;
     public static int enemyCount;
 
     void Spawn() 
@@ -23,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         enemyCount = 0;
+        spawner = GetComponent<Transform>();
     }
 
     void Update()

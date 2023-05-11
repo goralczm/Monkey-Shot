@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Buy Ammo \n(1 pt. = 1 ammo)"
+  m_text: "Buy Ammo \n(1 pt. = 10 ammo)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -538,6 +538,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -611,6 +612,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654d65e7df0d6694db19763fcd56b1af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &593743509
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,34 +758,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Spawner
       objectReference: {fileID: 0}
-    - target: {fileID: 1272366490278206274, guid: 3ff107578aad2f54aba545aaccdca101, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1272366490278206276, guid: 3ff107578aad2f54aba545aaccdca101, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1272366490278206276, guid: 3ff107578aad2f54aba545aaccdca101, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1272366490278206276, guid: 3ff107578aad2f54aba545aaccdca101, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1272366490278206277, guid: 3ff107578aad2f54aba545aaccdca101, type: 3}
-      propertyPath: spawnLimit
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1272366490278206277, guid: 3ff107578aad2f54aba545aaccdca101, type: 3}
-      propertyPath: enemyTypes.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1272366490278206277, guid: 3ff107578aad2f54aba545aaccdca101, type: 3}
-      propertyPath: enemyTypes.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 5e68659b1b24be14cb6d912a4273dcb8, type: 2}
     - target: {fileID: 1272366490278206279, guid: 3ff107578aad2f54aba545aaccdca101, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1428,8 +1413,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -503.52, y: -454}
-  m_SizeDelta: {x: 609.96, y: 128.01}
+  m_AnchoredPosition: {x: -404.25003, y: -454}
+  m_SizeDelta: {x: 808.5, y: 128.01}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &854330046
 MonoBehaviour:
@@ -2387,8 +2372,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1849763359}
   - component: {fileID: 1849763358}
+  - component: {fileID: 1849763360}
   m_Layer: 0
-  m_Name: Game Manager
+  m_Name: Game Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2422,6 +2408,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1849763360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849763357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b65b6e0819014d74493c2d71b16a2269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 1232726131}
+  shopMenu: {fileID: 1232726132}
+  gun: {fileID: 593743512}
 --- !u!1 &1952013381
 GameObject:
   m_ObjectHideFlags: 0

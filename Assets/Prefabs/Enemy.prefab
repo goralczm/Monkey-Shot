@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6986701081993975714}
   - component: {fileID: 5253302448818291945}
   - component: {fileID: 4234884291943366574}
-  - component: {fileID: -3919734171077217719}
   - component: {fileID: 80462803}
+  - component: {fileID: 7819995893675671692}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -104,8 +104,28 @@ MonoBehaviour:
   anim: {fileID: 0}
   enemyType: {fileID: 11400000, guid: e8b7e470c60269d4384245f9829127ba, type: 2}
   enemyHP: 0
---- !u!61 &-3919734171077217719
-BoxCollider2D:
+--- !u!95 &80462803
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8653695429393651445}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dd458a17e60468d439807654f42818a9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!60 &7819995893675671692
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,26 +147,61 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.6, y: 1.6}
-  m_EdgeRadius: 0
---- !u!95 &80462803
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8653695429393651445}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: dd458a17e60468d439807654f42818a9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.3, y: -0.033333335}
+      - {x: 0.3, y: 0}
+      - {x: 0.26666668, y: 0}
+      - {x: 0.26666668, y: 0.033333335}
+      - {x: 0.3, y: 0.033333335}
+      - {x: 0.3, y: 0.06666667}
+      - {x: 0.33333334, y: 0.06666667}
+      - {x: 0.33333334, y: 0.10000001}
+      - {x: 0.43333337, y: 0.10000001}
+      - {x: 0.43333337, y: 0.13333334}
+      - {x: 0.4666667, y: 0.13333334}
+      - {x: 0.4666667, y: 0.26666668}
+      - {x: 0.43333337, y: 0.26666668}
+      - {x: 0.43333337, y: 0.3}
+      - {x: 0.33333334, y: 0.3}
+      - {x: 0.33333334, y: 0.36666667}
+      - {x: 0.3, y: 0.36666667}
+      - {x: 0.3, y: 0.40000004}
+      - {x: 0.20000002, y: 0.40000004}
+      - {x: 0.20000002, y: 0.43333337}
+      - {x: -0.20000002, y: 0.43333337}
+      - {x: -0.20000002, y: 0.40000004}
+      - {x: -0.3, y: 0.40000004}
+      - {x: -0.3, y: 0.36666667}
+      - {x: -0.33333334, y: 0.36666667}
+      - {x: -0.33333334, y: 0.3}
+      - {x: -0.43333337, y: 0.3}
+      - {x: -0.43333337, y: 0.26666668}
+      - {x: -0.4666667, y: 0.26666668}
+      - {x: -0.4666667, y: 0.13333334}
+      - {x: -0.43333337, y: 0.13333334}
+      - {x: -0.43333337, y: 0.10000001}
+      - {x: -0.33333334, y: 0.10000001}
+      - {x: -0.33333334, y: 0.06666667}
+      - {x: -0.3, y: 0.06666667}
+      - {x: -0.3, y: 0.033333335}
+      - {x: -0.26666668, y: 0.033333335}
+      - {x: -0.26666668, y: 0}
+      - {x: -0.3, y: 0}
+      - {x: -0.3, y: -0.033333335}
+      - {x: -0.36666667, y: -0.033333335}
+      - {x: -0.36666667, y: -0.33333334}
+      - {x: -0.33333334, y: -0.33333334}
+      - {x: -0.33333334, y: -0.36666667}
+      - {x: -0.3, y: -0.36666667}
+      - {x: -0.3, y: -0.40000004}
+      - {x: -0.23333335, y: -0.40000004}
+      - {x: -0.23333335, y: -0.43333337}
+      - {x: 0.23333335, y: -0.43333337}
+      - {x: 0.23333335, y: -0.40000004}
+      - {x: 0.3, y: -0.40000004}
+      - {x: 0.3, y: -0.36666667}
+      - {x: 0.33333334, y: -0.36666667}
+      - {x: 0.33333334, y: -0.33333334}
+      - {x: 0.36666667, y: -0.33333334}
+      - {x: 0.36666667, y: -0.033333335}
