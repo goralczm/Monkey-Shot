@@ -8,8 +8,6 @@ public class Gun : MonoBehaviour
 {
     public GunTemplate gunType;
 
-    
-
     public int maxAmmo = 50;
     
     private int currAmmo;
@@ -23,10 +21,9 @@ public class Gun : MonoBehaviour
     private void Start()
     {
        
-
-        Enemy.points = 0;
-
         PopulateInfo(gunType);
+
+        
 
     }
     void Update()
@@ -38,7 +35,7 @@ public class Gun : MonoBehaviour
 
         magazineText.SetText("Magazine: " + currAmmo.ToString());
         ammoText.SetText("Ammo left: " + maxAmmo.ToString());
-        scoreText.SetText("Score: " + Enemy.points.ToString());
+        //scoreText.SetText("Score: " + Enemy.howMuchPoints.ToString());
 
         if (Input.GetMouseButtonDown(0) && !isReloading && currAmmo > 0)
         {
@@ -72,6 +69,9 @@ public class Gun : MonoBehaviour
 
         //AudioManager.instance.Play(gunType.shotSound);
 
+        StartCoroutine(ShotDelay());
+
+
         if (hit.collider != null)
         {
             Enemy target = hit.transform.GetComponent<Enemy>();
@@ -85,6 +85,12 @@ public class Gun : MonoBehaviour
             
         }
        
+    }
+
+    IEnumerator ShotDelay()
+    {
+        yield return new WaitForSeconds(gunType.shotDelay);
+
     }
     IEnumerator ReloadEffect()
     {
@@ -121,5 +127,7 @@ public class Gun : MonoBehaviour
 
         maxAmmo = gunType.maxAmmo;
     }
+
+   
 
 }

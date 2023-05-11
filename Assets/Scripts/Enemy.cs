@@ -9,21 +9,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 1f;
-    
+    public EnemyTemplate enemyType;
+
+    int hp;
+
     private float cooldownTimer = 0.05f;
     private Vector2 dir;
 
     public Transform planeDimensions;
 
-    public int health = 3;
-
     private SpriteRenderer rend;
 
-    public static int points = 0;
-
     public EnemySpawning spawner;
-
 
 
     private void Start()
@@ -32,7 +29,12 @@ public class Enemy : MonoBehaviour
         dir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
 
         rend = GetComponent<SpriteRenderer>();
+        rend.sprite = enemyType.nazwaSprite;
         rend.color = Color.white;
+        
+        PopulateInfo(enemyType);
+
+        hp = enemyType.health;
 
     }
     void Update()
@@ -52,20 +54,22 @@ public class Enemy : MonoBehaviour
             cooldownTimer = 0.05f;
         }
         
-        transform.Translate(dir.normalized * Time.deltaTime * speed);
+        transform.Translate(dir.normalized * Time.deltaTime * enemyType.speed);
+
+
 
     }
     public void HitMonkey(int damage)
     {
-        health -= damage;
+        hp -= damage;
 
-        if (health <= 0)
+        if (hp <= 0)
         {
             
             StopAllCoroutines();
             Destroy(gameObject);
 
-            points += 1;
+            GameManager.Instance.AddPoints(enemyType.pointsReward);
 
             spawner.spawnMonkey();
 
@@ -82,7 +86,11 @@ public class Enemy : MonoBehaviour
         rend.color = Color.white;
     }
 
+    public void PopulateInfo(EnemyTemplate newEnemy)
+    {
+        enemyType = newEnemy;
 
+    }
 
 
 }
