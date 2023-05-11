@@ -9,39 +9,39 @@ public class Gun : MonoBehaviour
     public GunTemplate gunType;
 
     public int maxAmmo = 50;
-    
+
     private int currAmmo;
 
     public TextMeshProUGUI magazineText;
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI scoreText;
 
-    
     private bool isReloading;
+    private float shotCooldownTimer;
+
     private void Start()
     {
-       
         PopulateInfo(gunType);
-
-        
-
     }
+
     void Update()
     {
-
-        if(Time.timeScale == 0f){
+        if (gunType == null)
+        {
+            Debug.LogError("NIE USTAWI£EŒ SCRIPTABLE OBJECT PISTOLETU!");
             return;
         }
 
-        magazineText.SetText("Magazine: " + currAmmo.ToString());
-        ammoText.SetText("Ammo left: " + maxAmmo.ToString());
-        //scoreText.SetText("Score: " + Enemy.howMuchPoints.ToString());
+        if (Time.timeScale == 0f)
+            return;
 
-        if (Input.GetMouseButtonDown(0) && !isReloading && currAmmo > 0)
-        {
+        magazineText.SetText("Magazine: " + currAmmo);
+        ammoText.SetText("Ammo left: " + maxAmmo);
+
+        shotCooldownTimer -= Time.deltaTime;
+
+        if (Input.GetMouseButtonDown(0) && !isReloading && currAmmo > 0 && shotCooldownTimer <= 0)
             Shoot();
-        }
-        
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 dir = mousePos - (Vector2)transform.position;
@@ -55,22 +55,18 @@ public class Gun : MonoBehaviour
             modifier = -180;
         }
         else
-        {
             targetRot = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-        }
 
-            transform.rotation = Quaternion.Euler(0, targetRot.z * 100 + modifier, 0);
-        
+        transform.rotation = Quaternion.Euler(0, targetRot.z * 100 + modifier, 0);
     }
+
     public void Shoot()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
         //AudioManager.instance.Play(gunType.shotSound);
-
-        StartCoroutine(ShotDelay());
-
+        shotCooldownTimer = gunType.shotDelay;
 
         if (hit.collider != null)
         {
@@ -82,16 +78,11 @@ public class Gun : MonoBehaviour
         if (currAmmo == 0 && maxAmmo > 0)
         {
             StartCoroutine(ReloadEffect());
-            
+
         }
-       
-    }
-
-    IEnumerator ShotDelay()
-    {
-        yield return new WaitForSeconds(gunType.shotDelay);
 
     }
+
     IEnumerator ReloadEffect()
     {
 
@@ -115,7 +106,7 @@ public class Gun : MonoBehaviour
         {
             currAmmo = gunType.magCapacity;
         }
-        
+
         isReloading = false;
         //AudioManager.instance.Stop(gunType.reloadSound);
     }
@@ -127,7 +118,4 @@ public class Gun : MonoBehaviour
 
         maxAmmo = gunType.maxAmmo;
     }
-
-   
-
 }

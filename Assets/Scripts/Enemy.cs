@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
 
-        cooldownTimer -= Time.deltaTime;
+       cooldownTimer -= Time.deltaTime;
         if (cooldownTimer <= 0)
         {
             if (Mathf.Abs(transform.position.x) + transform.localScale.x / 2 >= planeDimensions.localScale.x / 2)
