@@ -12,6 +12,6 @@ public class EnemyTemplate : ScriptableObject
     //public string monkeySound;
     //public string deathSound;
 
-    public Sprite nazwaSprite;
+    public Sprite sprite;
 
 }

@@ -17,5 +17,5 @@ MonoBehaviour:
   reloadSpeed: 2
   magCapacity: 8
   maxAmmo: 40
-  shotDelay: 4
+  shotDelay: 0.4
   nazwaSprite: {fileID: 21300000, guid: 753e185ab0206ce4f9b2db56adecf8a9, type: 3}

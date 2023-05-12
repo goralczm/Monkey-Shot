@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7733773133383487496}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.15, y: 0.68, z: -0.22873183}
+  m_LocalPosition: {x: -4.15, y: 0.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,6 +47,9 @@ MonoBehaviour:
   enemyTypes:
   - {fileID: 11400000, guid: e22f360febb20a8458270ee3f8e368be, type: 2}
   - {fileID: 11400000, guid: 3782a6fd888264340aeb2830ff1710a7, type: 2}
-  enemyToSpawn: {fileID: 3882373620037384641, guid: 722afabb0d6f1ac41b0c43b8862e2c7c, type: 3}
-  howMuchEnemies: 5
-  planeDimensions: {fileID: 0}
+  enemyToSpawn: {fileID: -1130470489606466703, guid: 722afabb0d6f1ac41b0c43b8862e2c7c, type: 3}
+  enemyCount: 1
+  top: []
+  left: []
+  right: []
+  bottom: []

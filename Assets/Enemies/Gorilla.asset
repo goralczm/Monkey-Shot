@@ -16,4 +16,4 @@ MonoBehaviour:
   health: 10
   speed: 7
   pointsReward: 6
-  nazwaSprite: {fileID: 21300000, guid: a157b1de81602a742ba9c209dc51e3e5, type: 3}
+  sprite: {fileID: 21300000, guid: a157b1de81602a742ba9c209dc51e3e5, type: 3}
