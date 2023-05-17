@@ -6,10 +6,9 @@ using TMPro;
 
 public class Gun : MonoBehaviour
 {
+
     public TextMeshProUGUI MaxAmmotext;
     public static int currentAmmo;
-
-
     
     void Start()
     {
@@ -35,13 +34,14 @@ public class Gun : MonoBehaviour
 
     public void reload()
     {
-        currentAmmo += 5;
-        MaxAmmotext.text = "Ammo 5/" + currentAmmo.ToString();
-    }
+        if (!Pause.isPaused) {
+            currentAmmo += 5;
+            MaxAmmotext.text = "Ammo 5/" + currentAmmo.ToString();
+        } }
 
     public void Shoot()
     {
-        if (currentAmmo > 0) {
+        if (currentAmmo > 0 && !Pause.isPaused) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 

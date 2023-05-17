@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public int howManyEnemies;
-    public GameObject enemyToSpawn;
-    private Transform planeDimensions;
+    [SerializeField]
+    private GameObject enemyPrefab;
+    [SerializeField]
+    private float interval = 2.5f;
 
 
     private void Start()
     {
-        howManyEnemies = 2;
-        for(int i = 0; i < howManyEnemies; i++)
-        {
-            SpawnMonkey();
-        }
+        StartCoroutine(spawnEnemy(interval, enemyPrefab));
+        
     }
 
-   public void SpawnMonkey()
+   private IEnumerator spawnEnemy(float interval,GameObject enemy)
     {
-        Enemy newMonkey = Instantiate(enemyToSpawn,transform.position, Quaternion.identity).GetComponent<Enemy>();
-        
+        yield return new WaitForSeconds(interval);
+        GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(-5f, 5), Random.Range(-56, 6), 0), Quaternion.identity);
+        StartCoroutine(spawnEnemy(interval, enemy));
     }
 
 
