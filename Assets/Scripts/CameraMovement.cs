@@ -9,14 +9,14 @@ public class CameraMovement : MonoBehaviour
     bool blockMovementLeft = false;
     void FixedUpdate()
     {
-        if (EnemySpawner.spawner.transform.localScale.x / 2 <= transform.position.x)
+        if (EnemySpawner.spawner.transform.localScale.x / 2 -8 <= transform.position.x)
         {
             blockMovementRight = true;
         }
         else
             blockMovementRight = false;
 
-        if ((EnemySpawner.spawner.transform.localScale.x / 2) * (-1) >= transform.position.x)
+        if ((EnemySpawner.spawner.transform.localScale.x / 2) * (-1) +8 >= transform.position.x)
         {
             blockMovementLeft = true;
         }

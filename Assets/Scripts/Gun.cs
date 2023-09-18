@@ -9,6 +9,8 @@ public class Gun : MonoBehaviour
     [SerializeField] TextMeshProUGUI ammoText;
     [SerializeField] TextMeshProUGUI reloadText;
 
+    public static int numOfShots;
+
     [SerializeField] GameObject shotEffect;
     private ParticleSystem.MainModule shotPSMain;
 
@@ -28,6 +30,8 @@ public class Gun : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
+
+        numOfShots = 0;
 
         isReloading = false;
         canShot = true;
@@ -110,6 +114,7 @@ public class Gun : MonoBehaviour
                 shotPSMain.startColor = Color.yellow;
             }
             currAmmo--;
+            numOfShots++;
             Instantiate(shotEffect, rayOrigin.origin, Quaternion.identity);
             canShot = false;
             yield return new WaitForSeconds(weapon.shotCooldown);
