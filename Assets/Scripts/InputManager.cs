@@ -12,9 +12,13 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-            if (PauseMenu.isPaused)
+            if (PauseMenu.isPaused && !PauseMenu.isControls)
             {
                 StartCoroutine(pauseMenu.Resume());
+            }
+            else if (PauseMenu.isPaused && PauseMenu.isControls) 
+            {
+                pauseMenu.Controls();
             }
             else if (Shop.shopVisible) 
             {

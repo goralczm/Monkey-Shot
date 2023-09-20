@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         timeRemaining = 60f;
         timerRunning = true;
         points = 0;
+        Time.timeScale = 1f;
     }
     private void Update()
     {
