@@ -6,8 +6,10 @@ using System.Security.Cryptography;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] GameObject crosshair;
     public static int points;
     [SerializeField] TextMeshProUGUI pointsText;
+    public static bool isGameOver;
 
     public float timeRemaining;
     public bool timerRunning = false;
@@ -15,9 +17,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject GameOverPanelUI;
     [SerializeField] TextMeshProUGUI GameOverPoints;
+    [SerializeField] TextMeshProUGUI highScorePoints;
 
     private void Start()
     {
+        
+        isGameOver = false;
+
         timeRemaining = 60f;
         timerRunning = true;
         points = 0;
@@ -48,12 +54,34 @@ public class GameManager : MonoBehaviour
                 timerRunning = false;
             }
         }
-        else 
+        else
         {
-            Time.timeScale = 0f;
-            GameOverPoints.text = "Your Score: " + points.ToString();
-            GameOverPanelUI.SetActive(true);
+            if (!isGameOver) //Done this to prevent doing this step over and over after game is already over
+            {
+                Time.timeScale = 0f;
+                PauseMenu.isPaused = true;
+                GameOverPoints.text = "Your Score: " + points.ToString();
 
+                if (PlayerPrefs.HasKey("highScore"))
+                {
+                    if (points > PlayerPrefs.GetInt("highScore")) 
+                    {
+                        PlayerPrefs.SetInt("highScore", points);
+                    }
+                }
+                else 
+                {
+                    PlayerPrefs.SetInt("highScore", points);
+                }
+
+                highScorePoints.text = "High Score: " + PlayerPrefs.GetInt("highScore").ToString();
+
+                GameOverPanelUI.SetActive(true);
+                crosshair.SetActive(false);
+                Cursor.visible = true;
+                isGameOver = true;
+
+            }
         }
     }
 }

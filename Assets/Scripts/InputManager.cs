@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) 
+        if (Input.GetKeyDown(KeyCode.Escape) && !GameManager.isGameOver) 
         {
             if (PauseMenu.isPaused && !PauseMenu.isControls)
             {
